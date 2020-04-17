@@ -1,0 +1,5 @@
+Import the new db(.sql file)
+those .php files belong to folder sms/new/users
+Now that i have added a column for reg no which will be required to login,i have set your reg. no to EC/04/18 
+use that alongside your email and your initial password Test@123 to login
+good luck
