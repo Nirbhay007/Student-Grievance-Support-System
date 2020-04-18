@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2020 at 03:07 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: Jun 24, 2019 at 12:42 PM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mhindi`
+-- Database: `cms`
 --
 
 -- --------------------------------------------------------
@@ -40,7 +40,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `updationDate`) VALUES
-(1, 'admin', '81dc9bdb52d04dc20036dbd8313ed055', '18-10-2016 04:18:16');
+(1, 'admin', 'f925916e2754e5e03f75dd58a5733251', '18-10-2016 04:18:16');
 
 -- --------------------------------------------------------
 
@@ -51,9 +51,9 @@ INSERT INTO `admin` (`id`, `username`, `password`, `updationDate`) VALUES
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `categoryName` varchar(255) DEFAULT NULL,
-  `categoryDescription` longtext DEFAULT NULL,
-  `creationDate` timestamp NULL DEFAULT current_timestamp(),
-  `updationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+  `categoryDescription` longtext,
+  `creationDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updationDate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -75,7 +75,7 @@ CREATE TABLE `complaintremark` (
   `complaintNumber` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
   `remark` mediumtext NOT NULL,
-  `remarkDate` timestamp NOT NULL DEFAULT current_timestamp()
+  `remarkDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -101,9 +101,9 @@ INSERT INTO `complaintremark` (`id`, `complaintNumber`, `status`, `remark`, `rem
 CREATE TABLE `state` (
   `id` int(11) NOT NULL,
   `stateName` varchar(255) DEFAULT NULL,
-  `stateDescription` tinytext DEFAULT NULL,
-  `postingDate` timestamp NULL DEFAULT current_timestamp(),
-  `updationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+  `stateDescription` tinytext,
+  `postingDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updationDate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -116,6 +116,7 @@ INSERT INTO `state` (`id`, `stateName`, `stateDescription`, `postingDate`, `upda
 (5, 'Haryana', 'Haryana', '2017-03-28 07:20:36', '0000-00-00 00:00:00'),
 (6, 'Delhi', 'Delhi', '2017-06-11 10:54:12', '2019-06-24 07:24:19');
 
+
 -- --------------------------------------------------------
 
 --
@@ -126,8 +127,8 @@ CREATE TABLE `subcategory` (
   `id` int(11) NOT NULL,
   `categoryid` int(11) DEFAULT NULL,
   `subcategory` varchar(255) DEFAULT NULL,
-  `creationDate` timestamp NULL DEFAULT current_timestamp(),
-  `updationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+  `creationDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updationDate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -153,11 +154,11 @@ CREATE TABLE `tblcomplaints` (
   `complaintType` varchar(255) DEFAULT NULL,
   `state` varchar(255) DEFAULT NULL,
   `noc` varchar(255) DEFAULT NULL,
-  `complaintDetails` mediumtext DEFAULT NULL,
+  `complaintDetails` mediumtext,
   `complaintFile` varchar(255) DEFAULT NULL,
-  `regDate` timestamp NULL DEFAULT current_timestamp(),
+  `regDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `status` varchar(50) DEFAULT NULL,
-  `lastUpdationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+  `lastUpdationDate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -200,7 +201,7 @@ CREATE TABLE `userlog` (
   `uid` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `userip` binary(16) NOT NULL,
-  `loginTime` timestamp NOT NULL DEFAULT current_timestamp(),
+  `loginTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `logout` varchar(255) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -235,9 +236,7 @@ INSERT INTO `userlog` (`id`, `uid`, `username`, `userip`, `loginTime`, `logout`,
 (23, 0, 'anuj.lpu1@gmail.com', 0x3a3a3100000000000000000000000000, '2018-09-05 17:05:22', '', 0),
 (24, 0, 'anuj.lpu1@gmail.com', 0x3a3a3100000000000000000000000000, '2018-09-05 17:05:32', '', 0),
 (25, 1, 'anuj.lpu1@gmail.com', 0x3a3a3100000000000000000000000000, '2018-09-05 17:07:12', '', 1),
-(26, 1, 'anuj.lpu1@gmail.com', 0x3a3a3100000000000000000000000000, '2019-06-24 10:27:30', '24-06-2019 04:11:08 PM', 1),
-(27, 2, 'matatashadrack45@gmail.com', 0x3a3a3100000000000000000000000000, '2020-01-15 13:04:59', '15-01-2020 06:40:54 PM', 1),
-(28, 3, 'matatashadrack45@gmail.com', 0x3a3a3100000000000000000000000000, '2020-01-15 14:05:40', '', 1);
+(26, 1, 'anuj.lpu1@gmail.com', 0x3a3a3100000000000000000000000000, '2019-06-24 10:27:30', '24-06-2019 04:11:08 PM', 1);
 
 -- --------------------------------------------------------
 
@@ -251,14 +250,13 @@ CREATE TABLE `users` (
   `userEmail` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `contactNo` bigint(11) DEFAULT NULL,
-  `address` tinytext DEFAULT NULL,
+  `address` tinytext,
   `State` varchar(255) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,
   `pincode` int(6) DEFAULT NULL,
   `userImage` varchar(255) DEFAULT NULL,
-  `regDate` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updationDate` timestamp NULL DEFAULT current_timestamp(),
-  `reg_no` varchar(100) NOT NULL,
+  `regDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updationDate` timestamp NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `status` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -266,9 +264,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `fullName`, `userEmail`, `password`, `contactNo`, `address`, `State`, `country`, `pincode`, `userImage`, `regDate`, `updationDate`, `reg_no`, `status`) VALUES
-(1, 'Anuj Kumar', 'anuj.lpu1@gmail.com', 'f925916e2754e5e03f75dd58a5733251', 9999857860, 'Shakarpur', 'Uttar Pradesh', 'India', 110092, '6e8024ec26c292f258ec30f01e0392dc.png', '2017-03-28 11:44:52', '2019-06-24 10:39:44', 'EC/04/18', 1),
-(3, 'Shadrack Matata', 'matatashadrack45@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 1234, NULL, NULL, NULL, NULL, NULL, '2020-01-15 13:56:11', '2020-01-15 13:56:11', 'EC/04/18', 1);
+INSERT INTO `users` (`id`, `fullName`, `userEmail`, `password`, `contactNo`, `address`, `State`, `country`, `pincode`, `userImage`, `regDate`, `updationDate`, `status`) VALUES
+(1, 'Anuj Kumar', 'anuj.lpu1@gmail.com', 'f925916e2754e5e03f75dd58a5733251', 9999857860, 'Shakarpur', 'Uttar Pradesh', 'India', 110092, '6e8024ec26c292f258ec30f01e0392dc.png', '2017-03-28 11:44:52', '2019-06-24 10:39:44', 1);
 
 --
 -- Indexes for dumped tables
@@ -366,13 +363,13 @@ ALTER TABLE `tblcomplaints`
 -- AUTO_INCREMENT for table `userlog`
 --
 ALTER TABLE `userlog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
